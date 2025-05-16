@@ -1,203 +1,177 @@
-(function ($) {
- "use strict";
+/**
+* Template Name: iLanding
+* Template URL: https://bootstrapmade.com/ilanding-bootstrap-landing-page-template/
+* Updated: Nov 12 2024 with Bootstrap v5.3.3
+* Author: BootstrapMade.com
+* License: https://bootstrapmade.com/license/
+*/
 
-  // STICKY ACTIVE
-  var activeSticky = $('#active-sticky'),
-      winD = $(window);
-    winD.on('scroll',function() {
-      var scroll = $(window).scrollTop(),
-  		    isSticky = activeSticky;
-      if (scroll < 55) {
-       		isSticky.removeClass("is-sticky");
+(function() {
+  "use strict";
+
+  /**
+   * Apply .scrolled class to the body as the page is scrolled down
+   */
+  function toggleScrolled() {
+    const selectBody = document.querySelector('body');
+    const selectHeader = document.querySelector('#header');
+    if (!selectHeader.classList.contains('scroll-up-sticky') && !selectHeader.classList.contains('sticky-top') && !selectHeader.classList.contains('fixed-top')) return;
+    window.scrollY > 100 ? selectBody.classList.add('scrolled') : selectBody.classList.remove('scrolled');
+  }
+
+  document.addEventListener('scroll', toggleScrolled);
+  window.addEventListener('load', toggleScrolled);
+
+  /**
+   * Mobile nav toggle
+   */
+  const mobileNavToggleBtn = document.querySelector('.mobile-nav-toggle');
+
+  function mobileNavToogle() {
+    document.querySelector('body').classList.toggle('mobile-nav-active');
+    mobileNavToggleBtn.classList.toggle('bi-list');
+    mobileNavToggleBtn.classList.toggle('bi-x');
+  }
+  if (mobileNavToggleBtn) {
+    mobileNavToggleBtn.addEventListener('click', mobileNavToogle);
+  }
+
+  /**
+   * Hide mobile nav on same-page/hash links
+   */
+  document.querySelectorAll('#navmenu a').forEach(navmenu => {
+    navmenu.addEventListener('click', () => {
+      if (document.querySelector('.mobile-nav-active')) {
+        mobileNavToogle();
       }
-      else{
-       	isSticky.addClass("is-sticky");
+    });
+
+  });
+
+  /**
+   * Toggle mobile nav dropdowns
+   */
+  document.querySelectorAll('.navmenu .toggle-dropdown').forEach(navmenu => {
+    navmenu.addEventListener('click', function(e) {
+      e.preventDefault();
+      this.parentNode.classList.toggle('active');
+      this.parentNode.nextElementSibling.classList.toggle('dropdown-active');
+      e.stopImmediatePropagation();
+    });
+  });
+
+  /**
+   * Scroll top button
+   */
+  let scrollTop = document.querySelector('.scroll-top');
+
+  function toggleScrollTop() {
+    if (scrollTop) {
+      window.scrollY > 100 ? scrollTop.classList.add('active') : scrollTop.classList.remove('active');
+    }
+  }
+  scrollTop.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  });
+
+  window.addEventListener('load', toggleScrollTop);
+  document.addEventListener('scroll', toggleScrollTop);
+
+  /**
+   * Animation on scroll function and init
+   */
+  function aosInit() {
+    AOS.init({
+      duration: 600,
+      easing: 'ease-in-out',
+      once: true,
+      mirror: false
+    });
+  }
+  window.addEventListener('load', aosInit);
+
+  /**
+   * Initiate glightbox
+   */
+  const glightbox = GLightbox({
+    selector: '.glightbox'
+  });
+
+  /**
+   * Init swiper sliders
+   */
+  function initSwiper() {
+    document.querySelectorAll(".init-swiper").forEach(function(swiperElement) {
+      let config = JSON.parse(
+        swiperElement.querySelector(".swiper-config").innerHTML.trim()
+      );
+
+      if (swiperElement.classList.contains("swiper-tab")) {
+        initSwiperWithCustomPagination(swiperElement, config);
+      } else {
+        new Swiper(swiperElement, config);
       }
-   });
-
-   // MENU A ACTIVE JQUERY
-  var pageUrl = window.location.href.substr(window.location.href.lastIndexOf("/")+1),
-      aActive = $('nav ul li a');
-  if (aActive.length) {
-    aActive.each(function(){
-      if($(this).attr("href") === pageUrl || $(this).attr("href") === '' )
-      $(this).addClass("active");
     });
   }
 
-  // SLICK CAROUSEL AS NAV
-  var fourItem = $('#four-item'),
-      oneItem = $('#one-item');
-  if (oneItem.length) {
-    oneItem.slick({
-      dots: true,
-      arrows: false,
+  window.addEventListener("load", initSwiper);
+
+  /**
+   * Initiate Pure Counter
+   */
+  new PureCounter();
+
+  /**
+   * Frequently Asked Questions Toggle
+   */
+  document.querySelectorAll('.faq-item h3, .faq-item .faq-toggle').forEach((faqItem) => {
+    faqItem.addEventListener('click', () => {
+      faqItem.parentNode.classList.toggle('faq-active');
     });
+  });
+
+  /**
+   * Correct scrolling position upon page load for URLs containing hash links.
+   */
+  window.addEventListener('load', function(e) {
+    if (window.location.hash) {
+      if (document.querySelector(window.location.hash)) {
+        setTimeout(() => {
+          let section = document.querySelector(window.location.hash);
+          let scrollMarginTop = getComputedStyle(section).scrollMarginTop;
+          window.scrollTo({
+            top: section.offsetTop - parseInt(scrollMarginTop),
+            behavior: 'smooth'
+          });
+        }, 100);
+      }
+    }
+  });
+
+  /**
+   * Navmenu Scrollspy
+   */
+  let navmenulinks = document.querySelectorAll('.navmenu a');
+
+  function navmenuScrollspy() {
+    navmenulinks.forEach(navmenulink => {
+      if (!navmenulink.hash) return;
+      let section = document.querySelector(navmenulink.hash);
+      if (!section) return;
+      let position = window.scrollY + 200;
+      if (position >= section.offsetTop && position <= (section.offsetTop + section.offsetHeight)) {
+        document.querySelectorAll('.navmenu a.active').forEach(link => link.classList.remove('active'));
+        navmenulink.classList.add('active');
+      } else {
+        navmenulink.classList.remove('active');
+      }
+    })
   }
-  if (fourItem.length) {
-    fourItem.slick({
-      speed: 600,
-      autoplay: true,
-      autoplaySpeed: 3000,
-      arrows: false,
-      infinite: true,
-      slidesToShow: 4,
-      pauseOnHover: false,
-      slidesToScroll: 1,
-      responsive: [
-        {
-          breakpoint: 1024,
-          settings: {
-          slidesToShow: 3
-          }
-        },
-        {
-          breakpoint: 600,
-          settings: {
-          slidesToShow: 1
-          }
-        },
-        {
-          breakpoint: 480,
-          settings: {
-          slidesToShow: 1
-          }
-        }
-      ]
-    });
-    // Add Custom Progress Bar
-    var $slickProgressBar = $('.slick-progress');
-    var $slickProgressBarLabel = $( '.slider-label' );
-    fourItem.on('beforeChange', function(event, slick, currentSlide, nextSlide) {
-      var calc = ( (nextSlide) / (slick.slideCount-1) ) * 100;
-      $slickProgressBar
-        .css('background-size', calc + '% 100%')
-        .attr('aria-valuenow', calc );
-      $slickProgressBarLabel.text( calc + '% completed' );
-    });
-  }
+  window.addEventListener('load', navmenuScrollspy);
+  document.addEventListener('scroll', navmenuScrollspy);
 
-  // Scroll UP
-  $.scrollUp({
-      scrollText: '<i class="fa fa-long-arrow-up" aria-hidden="true"></i>', // Text for element, can contain HTML
-      scrollSpeed: 800
-  });
-
-  // Counter Up
-  var $countUp = $('.counter');
-  $countUp.counterUp({
-      delay: 30,
-      time: 2000
-  });
-
-  // AOS ACTIVATION
-  AOS.init({
-    disable: function ($) {
-			var maxWidth = 1024;
-			return window.innerWidth < maxWidth;
-		},
-    offset: 120, // offset (in px) from the original trigger point
-    delay: 100, // values from 0 to 3000, with step 50ms
-    duration: 600, // values from 0 to 3000, with step 50ms
-    once: true, // whether animation should happen only once - while scrolling down
-  });
-
-  // MAIL CHIMP AJAX ACTIVE
-	var mCForm = $('#mc-form');
-	mCForm.ajaxChimp({
-		callback: mailchimpCallback,
-		//Replace this with your own mailchimp post URL. Don't remove the "". Just paste the url inside "".
-		url: "http://regaltheme.us16.list-manage.com/subscribe/post?u=9779a0e5298ed51ec0ff0a92b&amp;id=5466926a9f"
-	});
-	function mailchimpCallback(resp) {
-		if (resp.result === 'success') {
-			alert(resp.msg);
-
-		} else if(resp.result === 'error') {
-			alert(resp.msg);
-		}
-		return false;
-	}
-
-	// CONTACT FORM VALIDATIONS SETTINGS
-	var contactForm = $('#contact_form');
-	if ($('#contact_form').length) {
-		contactForm.validate({
-			onfocusout: false,
-			onkeyup: false,
-			rules: {
-				name: "required",
-				email: {
-					required: true,
-					email: true
-				}
-			},
-			errorPlacement: function(error, element) {
-				error.insertBefore(element);
-			},
-			messages: {
-				name: "What's your name?",
-				email: {
-					required: "What's your email?",
-					email: "Please, enter a valid email"
-				}
-			},
-
-			highlight: function(element) {
-				$(element)
-				.text('').addClass('error')
-			},
-
-			success: function(element) {
-				element
-				.text('').addClass('valid')
-			}
-		});
-	}
-
-	// CONTACT FORM SCRIPT
-	if ($('#contact_submit').length) {
-  	var contactSubmit = $('#contact_submit');
-  	contactForm.submit(function() {
-  		// submit the form
-  		if($(this).valid()){
-  		   contactSubmit.button('loading');
-  			var action = $(this).attr('action');
-  			$.ajax({
-  				url: action,
-  				type: 'POST',
-  				data: {
-  					contactname: $('#contact_name').val(),
-  					contactemail: $('#contact_email').val(),
-  					contactsubject: $('#contact_subject').val(),
-  					contactmessage: $('#contact_message').val()
-  				},
-  				success: function() {
-  				   contactSubmit.button('reset');
-  				   contactSubmit.button('complete');
-  				},
-  				error: function() {
-  					contactSubmit.button('reset');
-  					contactSubmit.button('error');
-  				}
-  			});
-  		// return false to prevent normal browser submit and page navigation
-  		} else {
-  			contactSubmit.button('reset')
-  		}
-  		return false;
-  	});
-  }
-
-  // Window Load function
-  jQuery(window).on('load', function(){
-    // Preloader
-    var preeLoad = $('#fadeout');
-    		preeLoad.fadeOut(1000);
-  });
-     
-  // Copy Right Year Update
-  $("#currentYear").text( (new Date).getFullYear() );
-
-
-})(jQuery);
+})();

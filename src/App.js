@@ -1,13 +1,12 @@
 import './App.css';
-import Home from './components/Home';
-import Hollywood from './components/Hollywood';
-import Gujarati from './components/Gujarati';
-import Series from './components/Series';
-import South from './components/South';
-import Error from './components/Error';
-import Navbar from './components/Navbar';
 import { Route, Routes, useLocation } from 'react-router-dom';
 import { useState } from 'react';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import Home from './pages/Home';
+import About from './pages/About';
+import Services from './pages/Services';
+import Contact from './pages/Contact';
 
 function App() {
   const location = useLocation();
@@ -19,15 +18,14 @@ function App() {
 
   return (
     <div className="App">
-      {showNavbar && <Navbar onSearch={handleSearch} />}
+      {showNavbar && <Header onSearch={handleSearch} />}
       <Routes>
-        <Route path='/' element={<Home searchTerm={searchTerm} />} />
-        <Route path='/hollywood-movies' element={<Hollywood searchTerm={searchTerm} />} />
-        <Route path='/gujarati-movies' element={<Gujarati searchTerm={searchTerm} />} />
-        <Route path='/south-movies' element={<South searchTerm={searchTerm} />} />
-        <Route path='/series' element={<Series searchTerm={searchTerm} />} />
-        <Route path='*' element={<Error />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/services" element={<Services />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
+      {showNavbar && <Footer />}
     </div>
   );
 }

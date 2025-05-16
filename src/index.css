@@ -11,3 +11,28 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+/* Reset all link states to remove underline */
+a,
+a:link,
+a:visited,
+a:hover,
+a:active {
+  text-decoration: none !important;
+  color: inherit;
+}
+
+/* Remove hover color change since it might interfere with component-specific styles */
+a:hover {
+  text-decoration: none !important;
+}
+
+a.active {
+  color: #000;
+  font-weight: 700;
+}
+
+.nav-link.active {
+  color: #000 !important;
+  font-weight: 700;
+}
