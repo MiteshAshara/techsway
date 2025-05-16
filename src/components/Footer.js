@@ -67,7 +67,7 @@ function Footer() {
               <div className="contact-item">
                 <p>
                   <i className="bi bi-telephone me-2"></i>
-                  +1 5589 55488 55
+                  +91 9054869699
                 </p>
               </div>
               <div className="contact-item">
