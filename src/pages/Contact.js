@@ -6,12 +6,11 @@ const Contact = () => {
     <section className="contact-section">
       <div className="container">
         <div className="section-title text-center mb-1 py-5 mt-1">
-             <span className="subtitle">
-                Contact Us
-              </span>
+          <span className="subtitle">Contact Us</span>
           <h2 className="title mt-2">Get In Touch With Us</h2>
           <h5 className="text-muted">
-            If you have any questions or inquiries, feel free to reach out to us. <br/> We are here to help you!
+            If you have any questions or inquiries, feel free to reach out to
+            us. <br /> We are here to help you!
           </h5>
         </div>
         <div className="container mt-2">
@@ -23,7 +22,8 @@ const Contact = () => {
                     <div className="contact-info">
                       <h2>Get in Touch</h2>
                       <p className="mb-4">
-                        We'd love to hear from you. Please fill out this form.
+                        We are always open to discussing new projects, creative
+                        ideas, or opportunities to be part of your visions.
                       </p>
 
                       <div className="info-item">
@@ -32,7 +32,17 @@ const Contact = () => {
                         </div>
                         <div>
                           <h4>Location:</h4>
-                          <p> R.K. Empire, 1207, 150 Feet Ring Rd,Mavdi Circle, Rajkot, Gujarat</p>
+                          <p>
+                            <a
+                              href="https://maps.app.goo.gl/8XYyzSPanTREuCkXA"
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="text-decoration-none text-light"
+                            >
+                              R.K. Empire, 1207, 150 Feet Ring Rd, Mavdi Circle,
+                              Rajkot, Gujarat
+                            </a>
+                          </p>
                         </div>
                       </div>
 
@@ -42,11 +52,18 @@ const Contact = () => {
                         </div>
                         <div>
                           <h4>Email:</h4>
-                          <p>techsinfoway@gmail.com</p>
+                          <p>
+                            <a
+                              href="mailto:techsinfoway@gmail.com"
+                              className="text-decoration-none text-light"
+                            >
+                              techsinfoway@gmail.com
+                            </a>
+                          </p>
                         </div>
                       </div>
 
-                      <div className="info-item">
+                      {/* <div className="info-item">
                         <div className="icon-box">
                           <i className="bi bi-phone"></i>
                         </div>
@@ -54,7 +71,7 @@ const Contact = () => {
                           <h4>Call:</h4>
                           <p>+91 9054869699</p>
                         </div>
-                      </div>
+                      </div> */}
                     </div>
                   </div>
 

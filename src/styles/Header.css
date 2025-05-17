@@ -1,0 +1,107 @@
+/* Base styles */
+.header {
+  z-index: 1050;
+  position: relative;
+  border: 5px solid white;
+  background-color: #0056b3;
+  border-radius: 250px;
+  max-width: 80%;
+  background: transparent;
+  margin: 40px auto 0; /* Center header */
+  width: 100%;
+  transition: all 0.3s ease-in-out;
+}
+
+.header.scrolled {
+  background: rgba(255, 255, 255, 0.95) !important;
+  box-shadow: 0 2px 15px rgba(0, 0, 0, 0.1) !important;
+  max-width: 100%;
+  margin: 0;
+  border-radius: 0;
+}
+
+.logo {
+  font-family: 'Nunito', sans-serif;
+}
+
+.nav-menu {
+  display: flex;
+  gap: 1rem; /* Changed from 20px to 1rem to match footer's gap */
+  align-items: center;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.2s ease-in-out;
+}
+
+.nav-link.active,
+.nav-link:hover {
+  color: #007bff;
+}
+
+/* Mobile menu styles */
+@media (max-width: 991px) {
+  .btn.d-lg-none {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 1060;
+    background: none;
+    border: none;
+  }
+
+  .nav-menu {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.95);
+    flex-direction: column;
+    padding: 3rem 2rem;
+    transform: translateX(100%);
+    transition: transform 0.4s ease;
+    
+    z-index: 1055;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .nav-menu.open {
+    transform: translateX(0);
+  }
+
+  .nav-link {
+    padding: 12px 0;
+    font-size: 1.3rem;
+    color: black !important;
+    border-bottom: none;
+    font-weight: bold;
+    transition: transform 0.3s ease, color 0.3s ease;
+  }
+
+  .nav-link:hover {
+    transform: scale(1.05);
+    color: #ffd700 !important;
+  }
+}
+
+.get-started-btn {
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px 20px;
+  border-radius: 25px;
+  font-weight: 500;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.get-started-btn:hover {
+  background: #0056b3;
+}

@@ -22,6 +22,11 @@
   color: #4154f1;
 }
 
+.social-links {
+  display: flex;
+  gap: 1rem !important; /* Changed from gap-3 to match header */
+}
+
 .social-links a {
   width: 38px;
   height: 38px;
